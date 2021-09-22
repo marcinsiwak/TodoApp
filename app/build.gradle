@@ -56,7 +56,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timber_version"
 
     // Koin
-    implementation "io.insert-koin:koin-core:$koin_version:$koin_version"
+    implementation "io.insert-koin:koin-core:$koin_version"
     implementation "io.insert-koin:koin-android:$koin_version"
 
     // Navigation
