@@ -22,6 +22,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,7 +39,7 @@ android {
 ext {
     koin_version= "3.1.2"
     timber_version= "5.0.1"
-
+    nav_version = "2.3.5"
 }
 
 dependencies {
@@ -54,4 +59,7 @@ dependencies {
     implementation "io.insert-koin:koin-core:$koin_version:$koin_version"
     implementation "io.insert-koin:koin-android:$koin_version"
 
+    // Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 }
