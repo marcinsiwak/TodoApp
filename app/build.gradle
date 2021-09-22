@@ -31,6 +31,12 @@ android {
     }
 }
 
+ext {
+    koin_version= "3.1.2"
+    timber_version= "5.0.1"
+
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.6.0'
@@ -40,4 +46,12 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    // Koin
+    implementation "io.insert-koin:koin-core:$koin_version:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
+
 }
