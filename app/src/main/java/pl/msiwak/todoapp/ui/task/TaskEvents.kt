@@ -1,4 +1,6 @@
 package pl.msiwak.todoapp.ui.task
 
-class TaskEvents {
+import pl.msiwak.todoapp.ui.base.BaseEvent
+
+class TaskEvents: BaseEvent {
 }
