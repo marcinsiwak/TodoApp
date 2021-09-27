@@ -1,5 +1,5 @@
 package pl.msiwak.todoapp.ui.taskList
 
-interface OnRecyclerListener {
+interface OnRecycleClickListener {
     fun onClick(pos:Int)
 }

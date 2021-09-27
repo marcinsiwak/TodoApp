@@ -3,6 +3,7 @@ package pl.msiwak.todoapp.ui.taskList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import pl.msiwak.todoapp.data.EditTaskData
 import pl.msiwak.todoapp.data.Task
 import pl.msiwak.todoapp.ui.base.BaseViewModel
 import pl.msiwak.todoapp.util.firebase.FirebaseDatabase
@@ -29,25 +30,27 @@ class TaskListViewModel(
         }
     }
 
-    fun onAddClicked() {
-        val currentDate = Calendar.getInstance().time
-        val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
-        val date = df.format(currentDate)
-        val testTask = Task("testTitle", "testDescription", "url", date)
+    fun onAddTaskClicked() {
+        sendEvent(TaskListEvents.NavigateToAddTask)
+    }
 
-        viewModelScope.launch {
-            firebaseDatabase.addTask(testTask, onSuccess = {
-                sendEvent(TaskListEvents.TaskAdded("Task added"))
-            }, onError = {
+    fun onEditTaskClicked(position: Int) {
+        val task = tasksList.value?.get(position)
+        sendEvent(TaskListEvents.NavigateToEditTask(EditTaskData(position, task)))
 
-            })
+    }
 
-        }
+    fun onItemChosenToRemove(position: Int){
+        sendEvent(TaskListEvents.ShowDeleteQuestion(position))
     }
 
     fun onItemRemoved(position: Int){
         viewModelScope.launch {
-            firebaseDatabase.deleteTask(position)
+            firebaseDatabase.deleteTask(position, onSuccess = {
+
+            }, onError = {
+
+            })
 
         }
     }

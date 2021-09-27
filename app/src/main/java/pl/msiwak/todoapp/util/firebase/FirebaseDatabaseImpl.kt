@@ -6,7 +6,7 @@ import pl.msiwak.todoapp.data.Task
 import timber.log.Timber
 import java.io.Serializable
 
-class FirebaseDatabaseImpl: FirebaseDatabase {
+class FirebaseDatabaseImpl : FirebaseDatabase {
 
     companion object {
         const val COLLECTION_NAME = "tasks_collection"
@@ -62,7 +62,7 @@ class FirebaseDatabaseImpl: FirebaseDatabase {
     }
 
 
-    override suspend fun deleteTask(position: Int) {
+    override suspend fun deleteTask(position: Int, onSuccess: () -> Unit, onError: () -> Unit) {
         tasks.value?.let {
             val newList = it
             newList.removeAt(position)
@@ -80,8 +80,27 @@ class FirebaseDatabaseImpl: FirebaseDatabase {
         }
     }
 
-    override suspend fun editTask() {
+    override suspend fun editTask(
+        position: Int,
+        task: Task,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
+        tasks.value?.let {
+            val newList = it
+            newList[position] = task
+            db.collection(COLLECTION_NAME)
+                .document(DOCUMENT)
+                .update(DOCUMENT, newList)
+                .addOnSuccessListener {
+                    onSuccess.invoke()
+                    Timber.e("Success")
+                }
+                .addOnFailureListener { e ->
+                    Timber.e("Failure, $e")
+                }
 
+        }
     }
 
 }

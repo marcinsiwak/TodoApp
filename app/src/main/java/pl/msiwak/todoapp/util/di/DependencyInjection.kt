@@ -9,7 +9,7 @@ import pl.msiwak.todoapp.util.firebase.FirebaseDatabase
 import pl.msiwak.todoapp.util.firebase.FirebaseDatabaseImpl
 
 val viewModelModule: Module = module {
-    viewModel { TaskViewModel() }
+    viewModel { TaskViewModel(get()) }
     viewModel { TaskListViewModel(get()) }
 }
 

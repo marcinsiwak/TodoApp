@@ -1,7 +1,6 @@
 package pl.msiwak.todoapp.ui.taskList
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import pl.msiwak.todoapp.data.Task
@@ -11,7 +10,8 @@ class TasksAdapter : RecyclerView.Adapter<TasksHolder>() {
 
     private var items: List<Task> = emptyList()
 
-    private var onItemClicked: OnRecyclerListener? = null
+    private var onItemClicked: OnRecycleClickListener? = null
+    private var onLongItemClicked: OnRecyclerLongClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksHolder {
         return TasksHolder(
@@ -20,7 +20,7 @@ class TasksAdapter : RecyclerView.Adapter<TasksHolder>() {
     }
 
     override fun onBindViewHolder(holder: TasksHolder, position: Int) {
-        holder.bind(items[position], onItemClicked)
+        holder.bind(items[position], onItemClicked, onLongItemClicked)
     }
 
     override fun getItemCount(): Int = items.size
@@ -30,18 +30,29 @@ class TasksAdapter : RecyclerView.Adapter<TasksHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setOnItemClickedListener(listener: OnRecyclerListener) {
+    fun setOnItemClickedListener(listener: OnRecycleClickListener) {
         onItemClicked = listener
+    }
+
+    fun setOnItemLongClickedListener(listener: OnRecyclerLongClickListener) {
+        onLongItemClicked = listener
     }
 
 
 }
 
-class TasksHolder(private val itemBinding: ItemTaskBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+class TasksHolder(private val itemBinding: ItemTaskBinding) :
+    RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(item: Task, listener: OnRecyclerListener?){
+    fun bind(item: Task, clickListener: OnRecycleClickListener?, longClickListener: OnRecyclerLongClickListener?) {
         itemBinding.taskItemTitleTv.text = item.title
-        itemBinding.root.setOnClickListener { listener?.onClick(adapterPosition) }
+        itemBinding.taskItemDescriptionTv.text = item.description
+        itemBinding.taskItemDateTv.text = item.creationDate
+        itemBinding.root.setOnClickListener { clickListener?.onClick(adapterPosition) }
+        itemBinding.root.setOnLongClickListener {
+            longClickListener?.onLongClicked(adapterPosition)
+            true
+        }
     }
 
 }

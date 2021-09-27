@@ -24,5 +24,73 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/taskTitleLabelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tytuł"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/taskTitleTv" />
+
+        <EditText
+            android:id="@+id/taskTitleEt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Wpisz tytuł zadania"
+            android:maxLength="30"
+            android:text="@={viewModel.title}"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/taskTitleLabelTv" />
+
+        <TextView
+            android:id="@+id/taskDescriptionLabelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Opis"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/taskTitleEt" />
+
+        <EditText
+            android:id="@+id/taskDescriptionEt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Wpisz opis zadania"
+            android:maxLength="200"
+            android:text="@={viewModel.description}"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/taskDescriptionLabelTv" />
+
+        <Button
+            android:id="@+id/taskActionBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dodaj zadanie"
+            android:onClick="@{() -> viewModel.onAddClicked()}"
+            android:layout_marginBottom="32dp"
+            app:isVisible="@{!viewModel.isEditMode}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/taskActionEditBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zaktualizuj zadanie"
+            app:isVisible="@{viewModel.isEditMode}"
+            android:onClick="@{() -> viewModel.onUpdateClicked()}"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
