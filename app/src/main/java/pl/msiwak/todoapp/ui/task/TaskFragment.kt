@@ -27,7 +27,11 @@ class TaskFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTaskBinding.inflate(inflater, container, false)
+        binding = FragmentTaskBinding.inflate(inflater, container, false).apply {
+            viewModel = mViewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
+
         initListeners()
 
         return binding.root

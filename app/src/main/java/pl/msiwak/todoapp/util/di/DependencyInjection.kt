@@ -5,12 +5,15 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 import pl.msiwak.todoapp.ui.task.TaskViewModel
 import pl.msiwak.todoapp.ui.taskList.TaskListViewModel
+import pl.msiwak.todoapp.util.firebase.FirebaseDatabase
+import pl.msiwak.todoapp.util.firebase.FirebaseDatabaseImpl
 
 val viewModelModule: Module = module {
     viewModel { TaskViewModel() }
-    viewModel { TaskListViewModel() }
+    viewModel { TaskListViewModel(get()) }
 }
 
-val useCaseModule: Module = module {
 
+val appModule: Module = module {
+    single<FirebaseDatabase> { FirebaseDatabaseImpl() }
 }

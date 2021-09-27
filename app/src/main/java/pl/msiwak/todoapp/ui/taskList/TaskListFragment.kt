@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import pl.msiwak.todoapp.R
 import pl.msiwak.todoapp.common.observeEvent
 import pl.msiwak.todoapp.common.observeFailure
 import pl.msiwak.todoapp.databinding.FragmentTaskListBinding
@@ -23,18 +21,21 @@ class TaskListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentTaskListBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentTaskListBinding.inflate(inflater, container, false).apply {
+            viewModel = mViewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
         initListeners()
         initObservers()
         initAdapter()
+        mViewModel.onInit()
 
         return binding.root
     }
 
     private fun initAdapter() {
         val adapter = TasksAdapter()
-        adapter.setData(listOf("task1", "task2"))
         binding.taskListRv.adapter = adapter
     }
 
@@ -47,7 +48,7 @@ class TaskListFragment : Fragment() {
 
     private fun initListeners() {
         binding.taskListBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_taskListFragment_to_taskFragment)
+//            findNavController().navigate(R.id.action_taskListFragment_to_taskFragment)
         }
     }
 
