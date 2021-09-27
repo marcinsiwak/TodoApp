@@ -44,7 +44,11 @@ class TaskListFragment : Fragment() {
 
     private fun initAdapter() {
         val adapter = TasksAdapter()
-        binding.taskListRv.adapter = adapter
+        val pagerAdapter = PagerAdapter()
+        binding.apply {
+            taskListRv.adapter = adapter
+            taskListPagerRv.adapter = pagerAdapter
+        }
     }
 
     private fun initObservers() {
@@ -77,7 +81,7 @@ class TaskListFragment : Fragment() {
 
                         }.setNegativeButton("Nie") { _: DialogInterface, _: Int ->
 
-                    }.show()
+                        }.show()
                 }
 
             }

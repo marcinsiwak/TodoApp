@@ -17,12 +17,15 @@ class TaskListViewModel(
     BaseViewModel<TaskListEvents>() {
 
     val tasksList: MutableLiveData<List<Task>> = MutableLiveData()
+    var pages: MutableLiveData<List<Int>> = MutableLiveData()
+
 
     fun onInit() {
         viewModelScope.launch {
             firebaseDatabase.getTasks(onSuccess = {
                 Timber.e("out: $it")
                 tasksList.value = it
+                pages.value = (1..it.size % 30).toList()
 
             }, onError = {
 

@@ -3,6 +3,7 @@ package pl.msiwak.todoapp.ui.taskList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import pl.msiwak.todoapp.common.setImageUrl
 import pl.msiwak.todoapp.data.Task
 import pl.msiwak.todoapp.databinding.ItemTaskBinding
 
@@ -44,14 +45,21 @@ class TasksAdapter : RecyclerView.Adapter<TasksHolder>() {
 class TasksHolder(private val itemBinding: ItemTaskBinding) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(item: Task, clickListener: OnRecycleClickListener?, longClickListener: OnRecyclerLongClickListener?) {
-        itemBinding.taskItemTitleTv.text = item.title
-        itemBinding.taskItemDescriptionTv.text = item.description
-        itemBinding.taskItemDateTv.text = item.creationDate
-        itemBinding.root.setOnClickListener { clickListener?.onClick(adapterPosition) }
-        itemBinding.root.setOnLongClickListener {
-            longClickListener?.onLongClicked(adapterPosition)
-            true
+    fun bind(
+        item: Task,
+        clickListener: OnRecycleClickListener?,
+        longClickListener: OnRecyclerLongClickListener?
+    ) {
+        itemBinding.apply {
+            taskItemTitleTv.text = item.title
+            taskItemDescriptionTv.text = item.description
+            taskItemDateTv.text = item.creationDate
+            taskItemIv.setImageUrl(item.iconUrl)
+            root.setOnClickListener { clickListener?.onClick(adapterPosition) }
+            root.setOnLongClickListener {
+                longClickListener?.onLongClicked(adapterPosition)
+                true
+            }
         }
     }
 

@@ -34,7 +34,7 @@ class TaskViewModel(private val firebaseDatabase: FirebaseDatabase): BaseViewMod
         val currentDate = Calendar.getInstance().time
         val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
         val date = df.format(currentDate)
-        val testTask = Task(title.value, description.value, "url", date)
+        val testTask = Task(title.value, description.value, "https://cdn.icon-icons.com/icons2/1875/PNG/512/task_120291.png", date)
 
         viewModelScope.launch {
             firebaseDatabase.addTask(testTask, onSuccess = {

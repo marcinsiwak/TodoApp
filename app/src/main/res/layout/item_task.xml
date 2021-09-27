@@ -32,6 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/taskItemTitleTv" />
 
     <ImageView
+        android:id="@+id/taskItemIv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:src="@android:drawable/ic_menu_my_calendar"
