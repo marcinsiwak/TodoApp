@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/marci/AndroidStudioProjects/TodoApp/app/src/main/res/drawable/bg_pager_border.xml" value="0.20572916666666666" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/TodoApp/app/src/main/res/drawable/bg_pager_item.xml" value="0.20572916666666666" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/TodoApp/app/src/main/res/drawable/bg_pager_ripple.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/marci/AndroidStudioProjects/TodoApp/app/src/main/res/drawable/bg_ripple_effect.xml" value="0.17135416666666667" />
         <entry key="..\:/Users/marci/AndroidStudioProjects/TodoApp/app/src/main/res/drawable/bg_task_item.xml" value="0.17135416666666667" />
         <entry key="..\:/Users/marci/AndroidStudioProjects/TodoApp/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />

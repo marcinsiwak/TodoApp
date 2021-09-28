@@ -11,7 +11,6 @@ class FirebaseDatabaseImpl : FirebaseDatabase {
     companion object {
         const val COLLECTION_NAME = "tasks_collection"
         const val DOCUMENT = "tasks"
-        const val TASK_ARRAY_KEY = "tasks_array"
     }
 
     private val db by lazy { FirebaseFirestore.getInstance() }

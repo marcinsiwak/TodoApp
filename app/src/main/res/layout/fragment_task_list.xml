@@ -28,7 +28,8 @@
             android:id="@+id/taskListRv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:data="@{viewModel.tasksList}"
+            app:data="@{viewModel.tasksToDisplayList}"
+            android:layout_marginBottom="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/taskListPagerRv"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,9 +40,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/taskListPagerRv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="64dp"
-            app:data="@{viewModel.tasksList}"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:overScrollMode="never"
+            app:pagerData="@{viewModel.pages}"
+            app:onPagerRecyclerClick="@{viewModel::onPageClicked}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -50,12 +55,12 @@
             android:id="@+id/taskListBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="44dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="32dp"
             android:src="@android:drawable/ic_input_add"
             android:backgroundTint="@color/colorGrey"
             android:onClick="@{() -> viewModel.onAddTaskClicked()}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/taskListPagerRv"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

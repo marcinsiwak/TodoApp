@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.msiwak.todoapp.common.setImageUrl
 import pl.msiwak.todoapp.data.Task
 import pl.msiwak.todoapp.databinding.ItemTaskBinding
+import timber.log.Timber
 
 class TasksAdapter : RecyclerView.Adapter<TasksHolder>() {
 
@@ -38,8 +39,6 @@ class TasksAdapter : RecyclerView.Adapter<TasksHolder>() {
     fun setOnItemLongClickedListener(listener: OnRecyclerLongClickListener) {
         onLongItemClicked = listener
     }
-
-
 }
 
 class TasksHolder(private val itemBinding: ItemTaskBinding) :
