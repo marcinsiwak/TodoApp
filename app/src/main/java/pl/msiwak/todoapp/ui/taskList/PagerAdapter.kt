@@ -49,7 +49,7 @@ class PagerHolder(private val itemBinding: ItemPageBinding) :
         itemBinding.apply {
             itemPagerTv.text = item.number.toString()
             itemPagerTv.background = if (item.isSelected) {
-                ContextCompat.getDrawable(itemBinding.root.context, R.color.colorGrey)
+                ContextCompat.getDrawable(itemBinding.root.context, R.drawable.bg_pager_selected)
             } else {
                 ContextCompat.getDrawable(itemBinding.root.context, R.drawable.bg_pager_ripple)
             }

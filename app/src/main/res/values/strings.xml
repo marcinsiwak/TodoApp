@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">TodoApp</string>
+
+    <string name="task_list_title">Task list</string>
+    <string name="add_task_title">Add task</string>
+    <string name="edit_task_title">Edit task</string>
+    <string name="task_title_label">Title</string>
+    <string name="task_title_hint">Insert task title</string>
+    <string name="task_description_label">Description</string>
+    <string name="task_description_hint">Insert task description</string>
+    <string name="task_add_button">Add new task</string>
+    <string name="task_update_button">Update task</string>
+
+
 </resources>

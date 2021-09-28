@@ -19,10 +19,13 @@ class TaskListViewModel(
     val tasksToDisplayList: MutableLiveData<List<Task>> = MutableLiveData()
     val pages: MutableLiveData<List<Page>> = MutableLiveData()
     val currentPage: MutableLiveData<Int> = MutableLiveData(0)
+    val isLoaderVisible: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun onInit() {
+        isLoaderVisible.value = true
         viewModelScope.launch {
             firebaseDatabase.getTasks(onSuccess = {
+                isLoaderVisible.value = false
                 tasksList.value = it
                 currentPage.value = 0
                 val pagesNumber = kotlin.math.ceil(it.size.toDouble().div(30)).toInt()
@@ -37,7 +40,7 @@ class TaskListViewModel(
                 prepareList()
 
             }, onError = {
-
+                isLoaderVisible.value = false
             })
         }
     }

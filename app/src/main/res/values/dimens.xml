@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="empty">0dp</dimen>
+    <dimen name="dividerHeight">1dp</dimen>
+
+    <dimen name="text_size_large">24sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+
+    <dimen name="padding_page">8dp</dimen>
+    <dimen name="margin_smaller">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xLarge">32dp</dimen>
+    <dimen name="margin_xxLarge">48p</dimen>
+
+    <dimen name="fab_elevation">6dp</dimen>
+    <dimen name="progress_circle_radius">5dp</dimen>
+    <dimen name="button_width">200dp</dimen>
+
+</resources>

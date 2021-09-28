@@ -1,53 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_task_item"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@drawable/bg_task_item">
 
     <TextView
         android:id="@+id/taskItemTitleTv"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/empty"
         android:layout_height="wrap_content"
-        android:text="TASK TASK"
-        android:layout_marginTop="16dp"
-        app:layout_constraintHorizontal_bias="0.2"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_xLarge"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_medium"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/taskItemDescriptionTv"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/taskItemDateTv"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/taskItemIv"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:text="Title" />
 
     <TextView
         android:id="@+id/taskItemDescriptionTv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="TASK DESCRIPTION"
+        android:layout_marginTop="@dimen/margin_smaller"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:textSize="@dimen/text_size_small"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/taskItemDateTv"
+        app:layout_constraintEnd_toEndOf="@+id/taskItemTitleTv"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/taskItemTitleTv"
-        app:layout_constraintTop_toBottomOf="@+id/taskItemTitleTv" />
+        app:layout_constraintTop_toBottomOf="@+id/taskItemTitleTv"
+        tools:text="Description" />
 
     <ImageView
         android:id="@+id/taskItemIv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:src="@android:drawable/ic_menu_my_calendar"
+        android:layout_marginStart="@dimen/margin_medium"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/taskItemTitleTv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@android:drawable/ic_menu_my_calendar" />
 
     <TextView
         android:id="@+id/taskItemDateTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/margin_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dividerHeight"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:background="@color/colorGrey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
