@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -96,24 +97,32 @@ class TaskListFragment : Fragment() {
                 bundle.putParcelable(BUNDLE_TASK, event.task)
                 findNavController().navigate(R.id.action_taskListFragment_to_taskFragment, bundle)
             }
-            is TaskListEvents.ShowDeleteQuestion -> {
-                context?.let {
-                    AlertDialog.Builder(it).setTitle("Czy na pewno chcesz usunąć zadanie?")
-                        .setPositiveButton("Tak") { _: DialogInterface, _: Int ->
-                            mViewModel.onItemRemoved(event.position)
-
-                        }.setNegativeButton("Nie") { _: DialogInterface, _: Int ->
-
-                        }.show()
-                }
-
-            }
+            is TaskListEvents.ShowDeleteQuestion -> showQuestionDialog(event.position)
+            is TaskListEvents.ShowTaskDeletedMessage -> Toast.makeText(context, event.message, Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
     private fun handleError(event: Failure?) {
         when (event) {
+            is Failure.GetTaskFailure -> Toast.makeText(context, event.errorText, Toast.LENGTH_SHORT)
+                .show()
+            is Failure.RemoveTaskFailure -> Toast.makeText(context, event.errorText, Toast.LENGTH_SHORT)
+                .show()
+            else -> Toast.makeText(context, getString(R.string.error_other), Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
 
+    private fun showQuestionDialog(taskPosition: Int){
+        context?.let {
+            AlertDialog.Builder(it).setTitle(getString(R.string.remove_task_question))
+                .setPositiveButton(getString(R.string.action_yes)) { _: DialogInterface, _: Int ->
+                    mViewModel.onItemRemoved(taskPosition)
+
+                }.setNegativeButton(getString(R.string.action_no)) { _: DialogInterface, _: Int ->
+
+                }.show()
         }
     }
 

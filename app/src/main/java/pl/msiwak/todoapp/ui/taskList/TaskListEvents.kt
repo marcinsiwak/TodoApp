@@ -8,5 +8,6 @@ sealed class TaskListEvents: BaseEvent {
     object NavigateToAddTask: TaskListEvents()
     class ShowDeleteQuestion(val position: Int): TaskListEvents()
     class NavigateToEditTask(val task: EditTaskData?): TaskListEvents()
+    class ShowTaskDeletedMessage(val message: String?): TaskListEvents()
 
 }

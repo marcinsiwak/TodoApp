@@ -21,6 +21,7 @@
             android:layout_marginTop="@dimen/margin_xLarge"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_large"
+            android:text="@{viewModel.fragmentTitle}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +49,8 @@
             android:layout_marginTop="@dimen/margin_medium"
             android:layout_marginEnd="@dimen/margin_medium"
             android:hint="@string/task_title_hint"
+            android:backgroundTint="@color/colorGrey"
+            android:textCursorDrawable="@null"
             android:maxLength="30"
             android:text="@={viewModel.title}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,10 +78,41 @@
             android:layout_marginEnd="@dimen/margin_medium"
             android:hint="@string/task_description_hint"
             android:maxLength="200"
+            android:backgroundTint="@color/colorGrey"
+            android:textCursorDrawable="@null"
             android:text="@={viewModel.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/taskDescriptionLabelTv" />
+
+
+        <TextView
+            android:id="@+id/taskIconLabelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/task_icon_label"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/taskDescriptionEt" />
+
+        <EditText
+            android:id="@+id/taskIconEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:hint="@string/task_icon_hint"
+            android:maxLength="200"
+            android:backgroundTint="@color/colorGrey"
+            android:textCursorDrawable="@null"
+            android:text="@={viewModel.iconUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/taskIconLabelTv" />
 
         <Button
             android:id="@+id/taskActionBtn"

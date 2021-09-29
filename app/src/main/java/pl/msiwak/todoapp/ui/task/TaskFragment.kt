@@ -77,7 +77,10 @@ class TaskFragment : Fragment() {
     }
     private fun handleError(event: Failure?) {
         when(event){
-
+            is Failure.AddTaskFailure -> Toast.makeText(context, event.errorText, Toast.LENGTH_SHORT).show()
+            is Failure.UpdateTaskFailure -> Toast.makeText(context, event.errorText, Toast.LENGTH_SHORT).show()
+            else -> Toast.makeText(context, getString(R.string.error_other), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

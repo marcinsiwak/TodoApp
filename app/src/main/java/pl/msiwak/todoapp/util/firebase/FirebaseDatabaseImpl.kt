@@ -19,13 +19,15 @@ class FirebaseDatabaseImpl : FirebaseDatabase {
     override suspend fun getTasks(onSuccess: (List<Task>) -> Unit, onError: () -> Unit) {
         db.collection(COLLECTION_NAME)
             .document(DOCUMENT)
-            .addSnapshotListener { value, _ ->
-                Timber.e("outputTaskCollection: ${value}")
+            .addSnapshotListener { value, e ->
+                if (e != null) {
+                    onError.invoke()
+                    Timber.e("getTasksError: $e")
+                    return@addSnapshotListener
+                }
                 val tasksCollection = value?.toObject(TasksCollection::class.java)
-                Timber.e("outputTaskCollection: ${tasksCollection?.tasks}")
                 tasks.value = tasksCollection?.tasks
                 tasksCollection?.tasks?.let { onSuccess.invoke(it) }
-                Timber.e("output: ${tasksCollection?.tasks}")
             }
     }
 
@@ -38,11 +40,11 @@ class FirebaseDatabaseImpl : FirebaseDatabase {
                 .update(DOCUMENT, newList)
                 .addOnSuccessListener {
                     onSuccess.invoke()
-                    Timber.e("Success")
+                    Timber.e("addTaskUpdate: Success")
                 }
                 .addOnFailureListener { e ->
                     onError.invoke()
-                    Timber.e("Failure, $e")
+                    Timber.e("addTaskUpdate: Failure, $e")
                 }
 
         } ?: run {
@@ -51,11 +53,11 @@ class FirebaseDatabaseImpl : FirebaseDatabase {
                 .set(TasksCollection(arrayListOf(task)))
                 .addOnSuccessListener {
                     onSuccess.invoke()
-                    Timber.e("Success")
+                    Timber.e("addTaskSet: Success")
                 }
                 .addOnFailureListener { e ->
                     onError.invoke()
-                    Timber.e("Failure, $e")
+                    Timber.e("addTaskSet: Failure, $e")
                 }
         }
     }
@@ -69,11 +71,11 @@ class FirebaseDatabaseImpl : FirebaseDatabase {
                 .document(DOCUMENT)
                 .update(DOCUMENT, newList)
                 .addOnSuccessListener {
-//                    onSuccess.invoke()
-                    Timber.e("Success")
+                    onSuccess.invoke()
+                    Timber.e("deleteTask: Success")
                 }
                 .addOnFailureListener { e ->
-                    Timber.e("Failure, $e")
+                    Timber.e("deleteTask: Failure, $e")
                 }
 
         }
@@ -93,10 +95,10 @@ class FirebaseDatabaseImpl : FirebaseDatabase {
                 .update(DOCUMENT, newList)
                 .addOnSuccessListener {
                     onSuccess.invoke()
-                    Timber.e("Success")
+                    Timber.e("editTask: Success")
                 }
                 .addOnFailureListener { e ->
-                    Timber.e("Failure, $e")
+                    Timber.e("editTask: Failure, $e")
                 }
 
         }

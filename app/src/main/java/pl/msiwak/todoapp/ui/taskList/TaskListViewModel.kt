@@ -3,15 +3,19 @@ package pl.msiwak.todoapp.ui.taskList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import pl.msiwak.todoapp.R
 import pl.msiwak.todoapp.data.EditTaskData
 import pl.msiwak.todoapp.data.Page
 import pl.msiwak.todoapp.data.Task
 import pl.msiwak.todoapp.ui.base.BaseViewModel
+import pl.msiwak.todoapp.util.error.Failure
 import pl.msiwak.todoapp.util.firebase.FirebaseDatabase
+import pl.msiwak.todoapp.util.helpers.ResourceProvider
 import timber.log.Timber
 
 class TaskListViewModel(
-    private val firebaseDatabase: FirebaseDatabase
+    private val firebaseDatabase: FirebaseDatabase,
+    private val resProvider: ResourceProvider
 ) :
     BaseViewModel<TaskListEvents>() {
 
@@ -41,6 +45,7 @@ class TaskListViewModel(
 
             }, onError = {
                 isLoaderVisible.value = false
+                sendError(Failure.GetTaskFailure(resProvider.getString(R.string.error_get_tasks)))
             })
         }
     }
@@ -61,9 +66,9 @@ class TaskListViewModel(
     fun onItemRemoved(position: Int) {
         viewModelScope.launch {
             firebaseDatabase.deleteTask(position, onSuccess = {
-
+                sendEvent(TaskListEvents.ShowTaskDeletedMessage(resProvider.getString(R.string.remove_task_success)))
             }, onError = {
-
+                sendError(Failure.RemoveTaskFailure(resProvider.getString(R.string.error_remove_task)))
             })
 
         }

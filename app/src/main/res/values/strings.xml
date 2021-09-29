@@ -5,11 +5,28 @@
     <string name="add_task_title">Add task</string>
     <string name="edit_task_title">Edit task</string>
     <string name="task_title_label">Title</string>
-    <string name="task_title_hint">Insert task title</string>
+    <string name="task_title_hint">Insert task title…</string>
     <string name="task_description_label">Description</string>
-    <string name="task_description_hint">Insert task description</string>
+    <string name="task_description_hint">Insert task description…</string>
+    <string name="task_icon_label">Icon</string>
+    <string name="task_icon_hint">Insert task icon url…</string>
     <string name="task_add_button">Add new task</string>
     <string name="task_update_button">Update task</string>
+
+    <string name="get_tasks_success">Fetching tasks data was successful!</string>
+    <string name="add_task_success">Task added!</string>
+    <string name="remove_task_success">Task removed!</string>
+    <string name="update_task_success">Task updated!</string>
+
+    <string name="error_get_tasks">Fetching task went wrong, try again later.</string>
+    <string name="error_add_task">Adding new task was unsuccessful, try again later.</string>
+    <string name="error_remove_task">Removing task was unsuccessful, try again later.</string>
+    <string name="error_edit_task">Updating task was unsuccessful, try again later.</string>
+    <string name="error_other">Something went wrong, try again later.</string>
+
+    <string name="remove_task_question">Do you want to delete this task?</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
 
 
 </resources>

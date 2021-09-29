@@ -14,7 +14,7 @@
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_large">24dp</dimen>
     <dimen name="margin_xLarge">32dp</dimen>
-    <dimen name="margin_xxLarge">48p</dimen>
+    <dimen name="margin_xxLarge">48dp</dimen>
 
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="progress_circle_radius">5dp</dimen>

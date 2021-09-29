@@ -7,6 +7,7 @@ import pl.msiwak.todoapp.R
 import pl.msiwak.todoapp.data.EditTaskData
 import pl.msiwak.todoapp.data.Task
 import pl.msiwak.todoapp.ui.base.BaseViewModel
+import pl.msiwak.todoapp.util.error.Failure
 import pl.msiwak.todoapp.util.firebase.FirebaseDatabase
 import pl.msiwak.todoapp.util.helpers.ResourceProvider
 import java.text.SimpleDateFormat
@@ -17,9 +18,15 @@ class TaskViewModel(
     private val resProvider: ResourceProvider
 ) : BaseViewModel<TaskEvents>() {
 
-    val fragmentTitle: MutableLiveData<String> = MutableLiveData(resProvider.getString(R.string.add_task_title))
+    companion object {
+        const val DATE_FORMAT = "dd-MMM-yyyy"
+    }
+
+    val fragmentTitle: MutableLiveData<String> =
+        MutableLiveData(resProvider.getString(R.string.add_task_title))
     val title: MutableLiveData<String> = MutableLiveData()
     val description: MutableLiveData<String> = MutableLiveData()
+    val iconUrl: MutableLiveData<String> = MutableLiveData()
     val isEditMode: MutableLiveData<Boolean> = MutableLiveData()
     private var currentTask: EditTaskData? = null
 
@@ -37,50 +44,46 @@ class TaskViewModel(
     }
 
     fun onAddClicked() {
-        val currentDate = Calendar.getInstance().time
-        val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
-        val date = df.format(currentDate)
         val testTask = Task(
             title.value,
             description.value,
-            "https://cdn.icon-icons.com/icons2/1875/PNG/512/task_120291.png",
-            date
+            iconUrl.value,
+            prepareCreationDate()
         )
 
         viewModelScope.launch {
             firebaseDatabase.addTask(testTask, onSuccess = {
-                sendEvent(TaskEvents.TaskAdded("Task added"))
+                sendEvent(TaskEvents.TaskAdded(resProvider.getString(R.string.add_task_success)))
             }, onError = {
-
+                sendError(Failure.AddTaskFailure(resProvider.getString(R.string.error_add_task)))
             })
 
         }
     }
 
     fun onUpdateClicked() {
-        val currentDate = Calendar.getInstance().time
-        val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
-        val date = df.format(currentDate)
-        val testTask = currentTask?.task?.copy(
+        val updatedTask = currentTask?.task?.copy(
             title = title.value,
             description = description.value,
-            iconUrl = "url",
-            creationDate = date
+            iconUrl = iconUrl.value,
+            creationDate = prepareCreationDate()
         )
 
         viewModelScope.launch {
             val pos = currentTask?.position
-            if (pos != null && testTask != null) {
-                firebaseDatabase.editTask(pos, testTask, onSuccess = {
-                    sendEvent(TaskEvents.TaskEdited("Task edited"))
+            if (pos != null && updatedTask != null) {
+                firebaseDatabase.editTask(pos, updatedTask, onSuccess = {
+                    sendEvent(TaskEvents.TaskEdited(resProvider.getString(R.string.update_task_success)))
                 }, onError = {
-
+                    sendError(Failure.UpdateTaskFailure(resProvider.getString(R.string.error_edit_task)))
                 })
-
-
             }
-
-
         }
+    }
+
+    private fun prepareCreationDate(): String {
+        val currentDate = Calendar.getInstance().time
+        val df = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
+        return df.format(currentDate)
     }
 }
