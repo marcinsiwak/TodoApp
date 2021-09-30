@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -19,7 +18,6 @@ import pl.msiwak.todoapp.common.observeEvent
 import pl.msiwak.todoapp.common.observeFailure
 import pl.msiwak.todoapp.databinding.FragmentTaskListBinding
 import pl.msiwak.todoapp.util.error.Failure
-import timber.log.Timber
 
 class TaskListFragment : Fragment() {
 
@@ -70,8 +68,10 @@ class TaskListFragment : Fragment() {
                     return scrollRange
                 }
             }
+
             taskListPagerRv.adapter = pagerAdapter
-            taskListPagerRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            taskListPagerRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
@@ -98,23 +98,35 @@ class TaskListFragment : Fragment() {
                 findNavController().navigate(R.id.action_taskListFragment_to_taskFragment, bundle)
             }
             is TaskListEvents.ShowDeleteQuestion -> showQuestionDialog(event.position)
-            is TaskListEvents.ShowTaskDeletedMessage -> Toast.makeText(context, event.message, Toast.LENGTH_SHORT)
+            is TaskListEvents.ShowTaskDeletedMessage -> Toast.makeText(
+                context,
+                event.message,
+                Toast.LENGTH_SHORT
+            )
                 .show()
         }
     }
 
     private fun handleError(event: Failure?) {
         when (event) {
-            is Failure.GetTaskFailure -> Toast.makeText(context, event.errorText, Toast.LENGTH_SHORT)
+            is Failure.GetTaskFailure -> Toast.makeText(
+                context,
+                event.errorText,
+                Toast.LENGTH_SHORT
+            )
                 .show()
-            is Failure.RemoveTaskFailure -> Toast.makeText(context, event.errorText, Toast.LENGTH_SHORT)
+            is Failure.RemoveTaskFailure -> Toast.makeText(
+                context,
+                event.errorText,
+                Toast.LENGTH_SHORT
+            )
                 .show()
             else -> Toast.makeText(context, getString(R.string.error_other), Toast.LENGTH_SHORT)
                 .show()
         }
     }
 
-    private fun showQuestionDialog(taskPosition: Int){
+    private fun showQuestionDialog(taskPosition: Int) {
         context?.let {
             AlertDialog.Builder(it).setTitle(getString(R.string.remove_task_question))
                 .setPositiveButton(getString(R.string.action_yes)) { _: DialogInterface, _: Int ->

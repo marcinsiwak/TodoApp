@@ -45,20 +45,23 @@ class TaskViewModel(
     }
 
     fun onAddClicked() {
-        val task = Task(
-            title.value,
-            description.value,
-            iconUrl.value,
-            prepareCreationDate()
-        )
+        if (!(title.value.isNullOrEmpty() || description.value.isNullOrEmpty() || iconUrl.value.isNullOrEmpty())) {
+            val task = Task(
+                title.value,
+                description.value,
+                iconUrl.value,
+                prepareCreationDate()
+            )
 
-        viewModelScope.launch {
-            firebaseDatabase.addTask(task, onSuccess = {
-                sendEvent(TaskEvents.TaskAdded(resProvider.getString(R.string.add_task_success)))
-            }, onError = {
-                sendError(Failure.AddTaskFailure(resProvider.getString(R.string.error_add_task)))
-            })
-
+            viewModelScope.launch {
+                firebaseDatabase.addTask(task, onSuccess = {
+                    sendEvent(TaskEvents.TaskAdded(resProvider.getString(R.string.add_task_success)))
+                }, onError = {
+                    sendError(Failure.AddTaskFailure(resProvider.getString(R.string.error_add_task)))
+                })
+            }
+        } else {
+            sendError(Failure.EmptyFieldsFailure(resProvider.getString(R.string.error_empty_field)))
         }
     }
 

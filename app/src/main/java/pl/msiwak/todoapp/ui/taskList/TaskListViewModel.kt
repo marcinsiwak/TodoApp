@@ -55,7 +55,7 @@ class TaskListViewModel(
     }
 
     fun onEditTaskClicked(position: Int) {
-        val task = tasksList.value?.get(position)
+        val task = tasksToDisplayList.value?.get(position)
         sendEvent(TaskListEvents.NavigateToEditTask(EditTaskData(position, task)))
     }
 

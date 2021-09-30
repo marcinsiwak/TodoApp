@@ -27,6 +27,7 @@ class FirebaseDatabaseImpl : FirebaseDatabase {
                 }
                 if (value != null && value.exists()) {
                     val tasksCollection = value?.toObject(TasksCollection::class.java)
+                    tasksCollection?.tasks?.reverse()
                     tasks.value = tasksCollection?.tasks
                     tasksCollection?.tasks?.let { onSuccess.invoke(it) }
                 }
