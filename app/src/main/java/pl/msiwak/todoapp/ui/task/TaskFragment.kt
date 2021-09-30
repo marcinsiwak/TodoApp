@@ -5,22 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pl.msiwak.todoapp.R
 import pl.msiwak.todoapp.common.observeEvent
 import pl.msiwak.todoapp.common.observeFailure
 import pl.msiwak.todoapp.data.EditTaskData
-import pl.msiwak.todoapp.data.Task
 import pl.msiwak.todoapp.databinding.FragmentTaskBinding
-import pl.msiwak.todoapp.databinding.FragmentTaskListBinding
-import pl.msiwak.todoapp.ui.taskList.TaskListEvents
 import pl.msiwak.todoapp.ui.taskList.TaskListFragment.Companion.BUNDLE_TASK
-import pl.msiwak.todoapp.ui.taskList.TaskListViewModel
 import pl.msiwak.todoapp.util.error.Failure
 
 class TaskFragment : Fragment() {
@@ -43,7 +36,6 @@ class TaskFragment : Fragment() {
 
         mViewModel.onInit(task)
 
-        initListeners()
         initObservers()
 
         return binding.root
@@ -56,15 +48,8 @@ class TaskFragment : Fragment() {
         }
     }
 
-    private fun initListeners() {
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner,) {
-            findNavController().navigate(R.id.action_taskFragment_to_taskListFragment)
-        }
-    }
-
-
     private fun handleEvent(event: TaskEvents?) {
-        when(event){
+        when (event) {
             is TaskEvents.TaskAdded -> {
                 findNavController().navigate(R.id.action_taskFragment_to_taskListFragment)
                 Toast.makeText(context, event.infoText, Toast.LENGTH_SHORT).show()
@@ -73,13 +58,29 @@ class TaskFragment : Fragment() {
                 findNavController().navigate(R.id.action_taskFragment_to_taskListFragment)
                 Toast.makeText(context, event.infoText, Toast.LENGTH_SHORT).show()
             }
+            TaskEvents.NavigateBack -> {
+                findNavController().navigate(R.id.action_taskFragment_to_taskListFragment)
+            }
         }
     }
+
     private fun handleError(event: Failure?) {
-        when(event){
-            is Failure.AddTaskFailure -> Toast.makeText(context, event.errorText, Toast.LENGTH_SHORT).show()
-            is Failure.UpdateTaskFailure -> Toast.makeText(context, event.errorText, Toast.LENGTH_SHORT).show()
-            is Failure.EmptyFieldsFailure -> Toast.makeText(context, event.errorText, Toast.LENGTH_SHORT).show()
+        when (event) {
+            is Failure.AddTaskFailure -> Toast.makeText(
+                context,
+                event.errorText,
+                Toast.LENGTH_SHORT
+            ).show()
+            is Failure.UpdateTaskFailure -> Toast.makeText(
+                context,
+                event.errorText,
+                Toast.LENGTH_SHORT
+            ).show()
+            is Failure.EmptyFieldsFailure -> Toast.makeText(
+                context,
+                event.errorText,
+                Toast.LENGTH_SHORT
+            ).show()
             else -> Toast.makeText(context, getString(R.string.error_other), Toast.LENGTH_SHORT)
                 .show()
         }

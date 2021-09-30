@@ -84,6 +84,10 @@ class TaskViewModel(
         }
     }
 
+    fun onBackClicked(){
+        sendEvent(TaskEvents.NavigateBack)
+    }
+
     private fun prepareCreationDate(): String {
         val currentDate = Calendar.getInstance().time
         val df = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
