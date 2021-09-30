@@ -55,8 +55,12 @@ class TaskListViewModel(
     }
 
     fun onEditTaskClicked(position: Int) {
-        val task = tasksToDisplayList.value?.get(position)
-        sendEvent(TaskListEvents.NavigateToEditTask(EditTaskData(position, task)))
+        val currentPageNumber = currentPage.value
+        currentPageNumber?.let {
+            val chosenPosition = position.plus(it.times(30))
+            val task = tasksList.value?.get(chosenPosition)
+            sendEvent(TaskListEvents.NavigateToEditTask(EditTaskData(chosenPosition, task)))
+        }
     }
 
     fun onItemChosenToRemove(position: Int) {
@@ -64,13 +68,16 @@ class TaskListViewModel(
     }
 
     fun onItemRemoved(position: Int) {
-        viewModelScope.launch {
-            firebaseDatabase.deleteTask(position, onSuccess = {
-                sendEvent(TaskListEvents.ShowTaskDeletedMessage(resProvider.getString(R.string.remove_task_success)))
-            }, onError = {
-                sendError(Failure.RemoveTaskFailure(resProvider.getString(R.string.error_remove_task)))
-            })
-
+        val currentPageNumber = currentPage.value
+        currentPageNumber?.let {
+            val chosenPosition = position.plus(it.times(30))
+            viewModelScope.launch {
+                firebaseDatabase.deleteTask(chosenPosition, onSuccess = {
+                    sendEvent(TaskListEvents.ShowTaskDeletedMessage(resProvider.getString(R.string.remove_task_success)))
+                }, onError = {
+                    sendError(Failure.RemoveTaskFailure(resProvider.getString(R.string.error_remove_task)))
+                })
+            }
         }
     }
 

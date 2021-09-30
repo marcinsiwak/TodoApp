@@ -67,6 +67,10 @@ class TaskListFragment : Fragment() {
                     }
                     return scrollRange
                 }
+
+                override fun getReverseLayout(): Boolean {
+                    return true
+                }
             }
 
             taskListPagerRv.adapter = pagerAdapter

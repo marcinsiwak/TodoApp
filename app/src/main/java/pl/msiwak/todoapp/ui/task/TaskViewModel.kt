@@ -69,8 +69,7 @@ class TaskViewModel(
         val updatedTask = currentTask?.task?.copy(
             title = title.value,
             description = description.value,
-            iconUrl = iconUrl.value,
-            creationDate = prepareCreationDate()
+            iconUrl = iconUrl.value
         )
 
         viewModelScope.launch {

@@ -32,7 +32,6 @@
             app:data="@{viewModel.tasksToDisplayList}"
             android:layout_marginBottom="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/taskListPagerRv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
