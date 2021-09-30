@@ -25,9 +25,11 @@ class FirebaseDatabaseImpl : FirebaseDatabase {
                     Timber.e("getTasksError: $e")
                     return@addSnapshotListener
                 }
-                val tasksCollection = value?.toObject(TasksCollection::class.java)
-                tasks.value = tasksCollection?.tasks
-                tasksCollection?.tasks?.let { onSuccess.invoke(it) }
+                if (value != null && value.exists()) {
+                    val tasksCollection = value?.toObject(TasksCollection::class.java)
+                    tasks.value = tasksCollection?.tasks
+                    tasksCollection?.tasks?.let { onSuccess.invoke(it) }
+                }
             }
     }
 

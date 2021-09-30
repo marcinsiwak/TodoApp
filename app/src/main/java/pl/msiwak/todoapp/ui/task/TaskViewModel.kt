@@ -36,6 +36,7 @@ class TaskViewModel(
             fragmentTitle.value = resProvider.getString(R.string.edit_task_title)
             title.value = it.task?.title
             description.value = it.task?.description
+            iconUrl.value = it.task?.iconUrl
             isEditMode.value = true
         } ?: kotlin.run {
             fragmentTitle.value = resProvider.getString(R.string.add_task_title)
@@ -44,7 +45,7 @@ class TaskViewModel(
     }
 
     fun onAddClicked() {
-        val testTask = Task(
+        val task = Task(
             title.value,
             description.value,
             iconUrl.value,
@@ -52,7 +53,7 @@ class TaskViewModel(
         )
 
         viewModelScope.launch {
-            firebaseDatabase.addTask(testTask, onSuccess = {
+            firebaseDatabase.addTask(task, onSuccess = {
                 sendEvent(TaskEvents.TaskAdded(resProvider.getString(R.string.add_task_success)))
             }, onError = {
                 sendError(Failure.AddTaskFailure(resProvider.getString(R.string.error_add_task)))

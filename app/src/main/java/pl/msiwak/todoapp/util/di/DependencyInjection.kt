@@ -13,7 +13,7 @@ import pl.msiwak.todoapp.util.helpers.ResourceProviderImpl
 
 val viewModelModule: Module = module {
     viewModel { TaskViewModel(get(), get()) }
-    viewModel { TaskListViewModel(get()) }
+    viewModel { TaskListViewModel(get(), get()) }
 }
 
 

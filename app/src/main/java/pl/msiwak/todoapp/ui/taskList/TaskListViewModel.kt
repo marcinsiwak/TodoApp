@@ -19,10 +19,10 @@ class TaskListViewModel(
 ) :
     BaseViewModel<TaskListEvents>() {
 
-    val tasksList: MutableLiveData<List<Task>> = MutableLiveData()
+    private val tasksList: MutableLiveData<List<Task>> = MutableLiveData()
+    private val currentPage: MutableLiveData<Int> = MutableLiveData(0)
     val tasksToDisplayList: MutableLiveData<List<Task>> = MutableLiveData()
     val pages: MutableLiveData<List<Page>> = MutableLiveData()
-    val currentPage: MutableLiveData<Int> = MutableLiveData(0)
     val isLoaderVisible: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun onInit() {

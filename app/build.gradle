@@ -19,6 +19,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -77,4 +78,15 @@ dependencies {
     //Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    //Mockito
+    testImplementation "org.mockito:mockito-core:3.7.7"
+    testImplementation "org.mockito:mockito-inline:3.7.7"
+
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    // Coroutines Tests
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
+
 }
