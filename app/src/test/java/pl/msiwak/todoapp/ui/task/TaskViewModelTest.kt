@@ -72,11 +72,14 @@ class TaskViewModelTest : BaseTest() {
 
         assertEquals(MOCKED_STRING, viewModel.fragmentTitle.value)
         assertEquals(false, viewModel.isEditMode.value)
+        verify(resProvider, times(2)).getString(anyInt())
     }
 
     @Test
     fun onAddClicked_success() = runBlockingTest {
         `when`(resProvider.getString(anyInt())).thenReturn(MOCKED_STRING)
+        viewModel.title.value = MOCKED_STRING
+        viewModel.description.value = MOCKED_STRING
         mockAddTaskSuccess()
         viewModel.onAddClicked()
 
@@ -91,6 +94,8 @@ class TaskViewModelTest : BaseTest() {
     @Test
     fun onAddClicked_failure() = runBlockingTest {
         `when`(resProvider.getString(anyInt())).thenReturn(MOCKED_STRING)
+        viewModel.title.value = MOCKED_STRING
+        viewModel.description.value = MOCKED_STRING
         mockAddTaskError()
         viewModel.onAddClicked()
 

@@ -45,7 +45,7 @@ class TaskViewModel(
     }
 
     fun onAddClicked() {
-        if (!(title.value.isNullOrEmpty() || description.value.isNullOrEmpty() || iconUrl.value.isNullOrEmpty())) {
+        if (!(title.value.isNullOrEmpty() || description.value.isNullOrEmpty())) {
             val task = Task(
                 title.value,
                 description.value,
