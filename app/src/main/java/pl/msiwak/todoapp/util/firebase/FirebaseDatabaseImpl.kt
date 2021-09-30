@@ -36,7 +36,7 @@ class FirebaseDatabaseImpl : FirebaseDatabase {
     override suspend fun addTask(task: Task, onSuccess: () -> Unit, onError: () -> Unit) {
         tasks.value?.let {
             val newList = it
-            newList.add(task)
+            newList.add(0, task)
             db.collection(COLLECTION_NAME)
                 .document(DOCUMENT)
                 .update(DOCUMENT, newList)
